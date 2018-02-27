@@ -1,8 +1,10 @@
 import requests
 import csv
+import datetime
 from bs4 import BeautifulSoup
 
-f = csv.writer(open('results.csv', 'w'))
+date = datetime.date.today()
+f = csv.writer(open('results' + str(date) + '.csv', 'w', newline=''))
 f.writerow(['buyer', 'price'])
 
 pages = []
@@ -20,10 +22,10 @@ for buyer_info in pages:
 
     buyerColumns = soup.find_all(title='buyer-name')
     for name in buyerColumns:
-        names = names.append(name.text)
+        names.append(name.text)
 
     buyerPrices = soup.find_all(class_='item-price')
     for price in buyerPrices:
-        prices = prices.append(price.text)
+        prices.append(price.text)
 
     f.writerow([names, prices])
